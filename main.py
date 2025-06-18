@@ -1,6 +1,6 @@
 import cv2
 from ultralytics import YOLO
-
+#https://www.swisstransfer.com/d/9b6e0f0c-6053-4f98-a724-41faa04b144c
 # Carica il modello con segmentazione
 model = YOLO("yolov8n.pt")
 
