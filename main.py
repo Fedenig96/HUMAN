@@ -8,8 +8,8 @@ model = YOLO("yolov8n.pt")
 cap = cv2.VideoCapture(0)
 
 # Crea una finestra a tutto schermo
-#cv2.namedWindow("YOLOv8 Person Detection", cv2.WINDOW_NORMAL)
-#cv2.setWindowProperty("YOLOv8 Person Detection", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+cv2.namedWindow("YOLOv8 Person Detection", cv2.WINDOW_NORMAL)
+cv2.setWindowProperty("YOLOv8 Person Detection", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
 while True:
     ret, frame = cap.read()
