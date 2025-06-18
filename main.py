@@ -1,6 +1,6 @@
 import cv2
 from ultralytics import YOLO
-#https://www.swisstransfer.com/d/9b6e0f0c-6053-4f98-a724-41faa04b144c
+
 # Carica il modello con segmentazione
 model = YOLO("yolov8n.pt")
 
@@ -11,12 +11,23 @@ cap = cv2.VideoCapture(0)
 cv2.namedWindow("YOLOv8 Person Detection", cv2.WINDOW_NORMAL)
 cv2.setWindowProperty("YOLOv8 Person Detection", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
+# Ottieni dimensioni dello schermo
+#screen_width = 1920
+#screen_height = 1080
+
+screen_width = 640
+screen_height = 480
+
+
 while True:
     ret, frame = cap.read()
     if not ret:
         break
 
-    results = model(frame)[0]
+    # Opzionale: crea una versione ridotta per inferenza più veloce
+    # small_frame = cv2.resize(frame, (640, 640))
+    # results = model(small_frame)[0]
+    results = model(frame)[0]  # se vuoi usare risoluzione piena
 
     for i in range(len(results.boxes)):
         box = results.boxes[i]
@@ -35,7 +46,11 @@ while True:
                 colored_mask = cv2.merge([mask, mask // 2, mask // 4])
                 frame = cv2.addWeighted(frame, 1, colored_mask, 0.5, 0)
 
-    cv2.imshow("YOLOv8 Person Detection", frame)
+    # Ridimensiona il frame per visualizzarlo a pieno schermo
+    full_screen_frame = cv2.resize(frame, (screen_width, screen_height))
+
+    # Mostra l'immagine a tutto schermo
+    cv2.imshow("YOLOv8 Person Detection", full_screen_frame)
 
     # Esci con ESC
     key = cv2.waitKey(1)
